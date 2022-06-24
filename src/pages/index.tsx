@@ -20,9 +20,12 @@ const Home: NextPage = () => {
 
     const [gameBalls, setGameBalls] = React.useState<GameBallType[]>([]);
     const [stars, setStars] = React.useState<StarType[]>([]);
+    const [errorMessage, setErrorMessage] = React.useState<string>("");
 
     const starsAmount = 12;
+
     const gameBallsAmount = 50;
+    const maxGameBallsAmount = 10;
 
     React.useEffect(() => {
         const arrayGameBalls = [];
@@ -44,10 +47,19 @@ const Home: NextPage = () => {
     }, []);
 
     const handleGameBallClick = (number: number, isSelected: boolean) => {
-        const newGameBalls = [...gameBalls];
-        newGameBalls[number - 1].isSelected = isSelected;
-        setGameBalls(newGameBalls);
-        computeBet();
+        // We check if all balls have already been selected
+        if (gameBalls.filter((ball) => ball.isSelected).length < maxGameBallsAmount || isSelected == false) {
+            const newGameBalls = [...gameBalls];
+            newGameBalls[number - 1].isSelected = isSelected;
+            setGameBalls(newGameBalls);
+            computeBet();
+        }
+
+        if (gameBalls.filter((ball) => ball.isSelected).length === maxGameBallsAmount && isSelected) {
+            setErrorMessage("Nombre maximum de balles selectionnées.");
+        } else {
+            setErrorMessage("");
+        }
     };
 
     const handleStarsClick = (number: number, isSelected: boolean) => {
@@ -59,14 +71,11 @@ const Home: NextPage = () => {
 
     const computeBet = () => {
         let bet = 0;
-        const selectedGameBalls = gameBalls.filter(
-            (gameBall) => gameBall.isSelected
-        );
+        const selectedGameBalls = gameBalls.filter((gameBall) => gameBall.isSelected);
         const selectedStars = stars.filter((star) => star.isSelected);
         const multiple = matrix.multiples.filter(
             (multiple) =>
-                multiple.pattern[0] === selectedGameBalls.length &&
-                multiple.pattern[1] === selectedStars.length
+                multiple.pattern[0] === selectedGameBalls.length && multiple.pattern[1] === selectedStars.length
         )[0];
         if (multiple) {
             bet = multiple.cost.value / 100;
@@ -83,6 +92,7 @@ const Home: NextPage = () => {
 
         setGameBalls(newGameBalls);
         setStars(newStars);
+        setErrorMessage("");
 
         computeBet();
     };
@@ -91,19 +101,11 @@ const Home: NextPage = () => {
         <div className={styles.container}>
             <Head>
                 <title>Grille Euromillions</title>
-                <meta
-                    name="description"
-                    content="Créez votre grille Euromillions facilement"
-                />
+                <meta name="description" content="Créez votre grille Euromillions facilement" />
             </Head>
 
             <div style={{ marginTop: "2%", textAlign: "center" }}>
-                <Image
-                    src="/logo.png"
-                    alt="Logo Euromillions"
-                    width={260}
-                    height={72.5}
-                />
+                <Image src="/logo.png" alt="Logo Euromillions" width={260} height={72.5} />
             </div>
 
             <main className={styles.main}>
@@ -114,10 +116,9 @@ const Home: NextPage = () => {
                                 key={gameBall.number}
                                 number={gameBall.number}
                                 isSelected={gameBall.isSelected}
-                                onClick={(
-                                    number: number,
-                                    isSelected: boolean
-                                ) => handleGameBallClick(number, isSelected)}
+                                onClick={(number: number, isSelected: boolean) =>
+                                    handleGameBallClick(number, isSelected)
+                                }
                             />
                         ))}
                     </div>
@@ -128,15 +129,13 @@ const Home: NextPage = () => {
                                 key={star.number}
                                 number={star.number}
                                 isSelected={star.isSelected}
-                                onClick={(
-                                    number: number,
-                                    isSelected: boolean
-                                ) => handleStarsClick(number, isSelected)}
+                                onClick={(number: number, isSelected: boolean) => handleStarsClick(number, isSelected)}
                             />
                         ))}
                     </div>
                 </div>
                 <Bet value={bet} />
+                <div style={{ textAlign: "center", margin: "1% auto" }}>{errorMessage}</div>
                 <ResetButton onClick={() => reset()} />
             </main>
         </div>

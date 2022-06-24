@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { GameBall } from "../components/GameBall";
 import "@testing-library/jest-dom";
 
@@ -26,7 +26,14 @@ describe("<GameBall />", () => {
         expect(gameBall).toBeInTheDocument();
     });
 
-    test("Check Gameball text", async () => {
+    test("Check GameBall text", async () => {
         expect(gameBall).toHaveTextContent("1");
+    });
+
+    test("Check GameBall click behavior", async () => {
+        const clickFunction = jest.fn();
+        render(<GameBall {...props} onClick={clickFunction} />);
+        fireEvent.click(screen.getByText("1"));
+        expect(clickFunction).toHaveBeenCalledTimes(1);
     });
 });

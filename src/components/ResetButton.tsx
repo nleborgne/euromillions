@@ -7,7 +7,7 @@ interface ResetButtonProps {
 
 export const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
     return (
-        <div style={{ textAlign: "center" }}>
+        <div data-testid="reset-button" style={{ textAlign: "center" }}>
             <button className={styles.button} onClick={onClick}>
                 Effacer
             </button>

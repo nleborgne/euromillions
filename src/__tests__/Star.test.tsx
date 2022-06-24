@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Star } from "../components/Star";
 import "@testing-library/jest-dom";
 
@@ -28,5 +28,12 @@ describe("<Star />", () => {
 
     test("Check Star text", async () => {
         expect(star).toHaveTextContent("1");
+    });
+
+    test("Check Star click behavior", async () => {
+        const clickFunction = jest.fn();
+        render(<Star {...props} onClick={clickFunction} />);
+        fireEvent.click(screen.getByText("1"));
+        expect(clickFunction).toHaveBeenCalledTimes(1);
     });
 });
