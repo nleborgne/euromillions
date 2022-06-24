@@ -12,7 +12,7 @@ import { StarType } from "../types/Star.type";
 import { update } from "../features/bet/betSlice";
 import { Bet } from "../components/Bet";
 import { ResetButton } from "../components/ResetButton";
-import matrix  from "../utils/matrix.json";
+import matrix from "../utils/matrix.json";
 
 const Home: NextPage = () => {
     const bet = useSelector((state: RootState) => state.bet.value);
@@ -57,41 +57,53 @@ const Home: NextPage = () => {
         computeBet();
     };
 
-
     const computeBet = () => {
         let bet = 0;
-        const selectedGameBalls = gameBalls.filter((gameBall) => gameBall.isSelected);
+        const selectedGameBalls = gameBalls.filter(
+            (gameBall) => gameBall.isSelected
+        );
         const selectedStars = stars.filter((star) => star.isSelected);
-        const multiple = matrix.multiples.filter((multiple) => multiple.pattern[0] === selectedGameBalls.length && multiple.pattern[1] === selectedStars.length)[0];
+        const multiple = matrix.multiples.filter(
+            (multiple) =>
+                multiple.pattern[0] === selectedGameBalls.length &&
+                multiple.pattern[1] === selectedStars.length
+        )[0];
         if (multiple) {
             bet = multiple.cost.value / 100;
         }
         dispatch(update(bet));
-    }
+    };
 
     const reset = () => {
         const newGameBalls = [...gameBalls];
         const newStars = [...stars];
-        
-        newGameBalls.forEach((gameBall) => gameBall.isSelected = false);
-        newStars.forEach((star) => star.isSelected = false);
-        
+
+        newGameBalls.forEach((gameBall) => (gameBall.isSelected = false));
+        newStars.forEach((star) => (star.isSelected = false));
+
         setGameBalls(newGameBalls);
         setStars(newStars);
 
         computeBet();
-
-    }
+    };
 
     return (
         <div className={styles.container}>
             <Head>
                 <title>Grille Euromillions</title>
-                <meta name="description" content="Créez votre grille Euromillions facilement" />
+                <meta
+                    name="description"
+                    content="Créez votre grille Euromillions facilement"
+                />
             </Head>
 
             <div style={{ marginTop: "2%", textAlign: "center" }}>
-                <Image src="/logo.png" alt="Logo Euromillions" width={260} height={72.5} />
+                <Image
+                    src="/logo.png"
+                    alt="Logo Euromillions"
+                    width={260}
+                    height={72.5}
+                />
             </div>
 
             <main className={styles.main}>
@@ -102,9 +114,10 @@ const Home: NextPage = () => {
                                 key={gameBall.number}
                                 number={gameBall.number}
                                 isSelected={gameBall.isSelected}
-                                onClick={(number: number, isSelected: boolean) =>
-                                    handleGameBallClick(number, isSelected)
-                                }
+                                onClick={(
+                                    number: number,
+                                    isSelected: boolean
+                                ) => handleGameBallClick(number, isSelected)}
                             />
                         ))}
                     </div>
@@ -115,13 +128,16 @@ const Home: NextPage = () => {
                                 key={star.number}
                                 number={star.number}
                                 isSelected={star.isSelected}
-                                onClick={(number: number, isSelected: boolean) => handleStarsClick(number, isSelected)}
+                                onClick={(
+                                    number: number,
+                                    isSelected: boolean
+                                ) => handleStarsClick(number, isSelected)}
                             />
                         ))}
                     </div>
                 </div>
                 <Bet value={bet} />
-                <ResetButton onClick={() => reset()}/>
+                <ResetButton onClick={() => reset()} />
             </main>
         </div>
     );

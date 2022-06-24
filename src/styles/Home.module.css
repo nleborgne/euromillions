@@ -5,13 +5,12 @@
 .main {
     min-height: 100vh;
     padding: 4rem 0;
-
 }
 
 .gridContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .grid {
@@ -28,19 +27,18 @@
 }
 
 .gameBallContainer {
-  width: 520px;
-  height: 300px;
-  display: flex;
-  flex-wrap: wrap;
+    width: 520px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .starContainer {
-  width: 150px;
-  height: 200px;
-  display: flex;
-  flex-wrap: wrap;
+    width: 150px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
 }
-
 
 @media (max-width: 600px) {
     .grid {
