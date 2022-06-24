@@ -1,7 +1,16 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
+    "outDir": "./.next",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,6 +24,18 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/__tests__/GameBall.test.tsx",
+    "src/__tests__/GameBall.test.tsx",
+    "jest.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.*",
+    "**/__mocks__/*",
+    "**/__tests__/*"
+  ]
 }
