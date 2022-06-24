@@ -47,7 +47,7 @@ const Home: NextPage = () => {
     }, []);
 
     const handleGameBallClick = (number: number, isSelected: boolean) => {
-        // We check if all balls have already been selected
+        // We check if all balls have already been selected or not
         if (gameBalls.filter((ball) => ball.isSelected).length < maxGameBallsAmount || isSelected == false) {
             const newGameBalls = [...gameBalls];
             newGameBalls[number - 1].isSelected = isSelected;
@@ -55,6 +55,7 @@ const Home: NextPage = () => {
             computeBet();
         }
 
+        // If all the balls have been selected, we show a message
         if (gameBalls.filter((ball) => ball.isSelected).length === maxGameBallsAmount && isSelected) {
             setErrorMessage("Nombre maximum de balles selectionnées.");
         } else {

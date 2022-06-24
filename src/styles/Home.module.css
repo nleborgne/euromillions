@@ -46,3 +46,17 @@
         flex-direction: column;
     }
 }
+
+
+@media (max-width: 800px) {
+  .gameBallContainer {
+    margin: 0 auto;
+  }
+  .starContainer {
+    margin: 0 auto;
+  }
+  .gridContainer 
+  {
+    flex-direction: column;
+  }
+}
