@@ -57,7 +57,7 @@ const Home: NextPage = () => {
 
         // If all the balls have been selected, we show a message
         if (gameBalls.filter((ball) => ball.isSelected).length === maxGameBallsAmount && isSelected) {
-            setErrorMessage("Nombre maximum de balles selectionnées.");
+            setErrorMessage("Vous avez sélectionné le nombre maximum de balles.");
         } else {
             setErrorMessage("");
         }
