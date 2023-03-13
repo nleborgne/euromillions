@@ -1,0 +1,63 @@
+.container {
+    padding: 0 2rem;
+    background-color: #dedede;
+}
+
+.main {
+    min-height: 100vh;
+    padding: 4rem 0;
+}
+
+.gridContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+
+.logo {
+    height: 1em;
+    margin-left: 0.5rem;
+}
+
+.gameBallContainer {
+    width: 520px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.starContainer {
+    width: 150px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .grid {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 800px) {
+  .gameBallContainer {
+    margin: 0 auto;
+  }
+  .starContainer {
+    margin: 0 auto;
+  }
+  .gridContainer 
+  {
+    flex-direction: column;
+  }
+}
