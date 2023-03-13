@@ -1,6 +1,6 @@
 import { BlueBall, Text, TextSelected, WhiteBall } from "./Ball.style";
 
-interface BallProps {
+export interface BallProps {
   number: number;
   isSelected: boolean;
   onClick: (number: number, isSelected: boolean) => void;
