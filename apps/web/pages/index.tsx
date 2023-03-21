@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Ball } from "ui";
@@ -13,6 +12,7 @@ import styles from "./Home.module.css";
 import { GameBallType } from "../types/GameBall.type";
 import { StarType } from "../types/Star.type";
 import matrix from "../utils/matrix.json";
+import { Header } from "../components/Header/Header";
 
 const Home: NextPage = () => {
   const bet = useSelector((state: RootState) => state.bet.value);
@@ -118,14 +118,7 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <div style={{ marginTop: "2%", textAlign: "center" }}>
-        <Image
-          src="/euromillions.png"
-          alt="Logo Euromillions"
-          width={260}
-          height={72.5}
-        />
-      </div>
+      <Header />
 
       <main className={styles.main}>
         <div className={styles.gridContainer}>
